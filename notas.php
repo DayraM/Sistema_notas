@@ -21,7 +21,7 @@ $notas = $conn->query("SELECT * FROM notas WHERE id_alumno = $id_alumno");
     <div class="container mt-5">
         <div class="card shadow">
             <div class="card-header bg-dark text-white d-flex justify-content-between">
-                
+                <h4>Notas de: <?php echo $alumno['nombre'] . " " . $alumno['apellido']; ?></h4>
                 <a href="index.php" class="btn btn-outline-light btn-sm">Volver al Inicio</a>
             </div>
             <div class="card-body">
@@ -34,10 +34,31 @@ $notas = $conn->query("SELECT * FROM notas WHERE id_alumno = $id_alumno");
                         </tr>
                     </thead>
                     <tbody>
+                        <?php while($n = $notas->fetch_assoc()): ?>
+                        <tr>
+                            <form action="acciones.php" method="POST">
+                                <td><?php echo $n['materia']; ?></td>
+                                <td>
+                                    <input type="number" name="nota" step="0.01" min="0" max="10" 
+                                           class="form-control form-control-sm" value="<?php echo $n['nota']; ?>">
+                                    <input type="hidden" name="id_nota" value="<?php echo $n['id']; ?>">
+                                </td>
+                                <td>
+                                    <button type="submit" name="modificar_nota" class="btn btn-sm btn-success">
+                                        <i class="bi bi-check-lg"></i> Guardar
+                                    </button>
+                                    <a href="acciones.php?eliminar_nota=<?php echo $n['id']; ?>&id_alumno=<?php echo $id_alumno; ?>" 
+                                       class="btn btn-sm btn-danger" onclick="return confirm('¿Eliminar esta nota?')">
+                                        <i class="bi bi-x-lg"></i>
+                                    </a>
+                                </td>
+                            </form>
+                        </tr>
+                        <?php endwhile; ?>                        
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </body>
-</html>
+</html

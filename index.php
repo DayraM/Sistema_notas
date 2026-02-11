@@ -50,6 +50,46 @@ $resultado = $conn->query($query);
                             </tr>
                         </thead>
                         <tbody>
+                            <?php while($row = $resultado->fetch_assoc()): 
+                                $prom = ($row['promedio'] !== null) ? round($row['promedio'], 2) : null;
+                                $estado = "Sin notas";
+                                $clase = "bg-secondary";
+
+                                if ($prom !== null) {
+                                    if ($prom >= 9) { $estado = "Sobresaliente"; $clase = "bg-primary"; }
+                                    elseif ($prom >= 7) { $estado = "Notable"; $clase = "bg-success"; }
+                                    elseif ($prom >= 5) { $estado = "Bien"; $clase = "bg-warning text-dark"; }
+                                    else { $estado = "Suspenso"; $clase = "bg-danger"; }
+                                }
+                            ?>
+                            <tr>
+                                <td><?php echo $row['id']; ?></td>
+                                <td><?php echo $row['nombre'] . " " . $row['apellido']; ?></td>
+                                <td><?php echo $row['correo']; ?><br><small class="text-muted"><?php echo $row['telefono']; ?></small></td>
+                                <td><?php echo $row['fecha_nacimiento']; ?></td>
+                                <td class="fw-bold"><?php echo ($prom !== null) ? number_format($prom, 2) : "0.00"; ?></td>
+                                <td><span class="badge <?php echo $clase; ?>"><?php echo $estado; ?></span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-info text-white" onclick="prepararNota(<?php echo $row['id']; ?>)" data-bs-toggle="modal" data-bs-target="#modalNota" title="Agregar Nota">
+                                        <i class="bi bi-journal-plus"></i>
+                                    </button>
+
+                                    <a href="notas.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-primary" title="Gestionar Notas">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    
+                                    <button class="btn btn-sm btn-warning text-white" 
+                                            onclick="prepararEdicion('<?php echo $row['id']; ?>', '<?php echo $row['nombre']; ?>', '<?php echo $row['apellido']; ?>', '<?php echo $row['correo']; ?>', '<?php echo $row['telefono']; ?>', '<?php echo $row['fecha_nacimiento']; ?>')" 
+                                            data-bs-toggle="modal" data-bs-target="#modalEditar" title="Editar Alumno">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </button>
+
+                                    <a href="acciones.php?eliminar_alumno=<?php echo $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('¿Seguro que deseas eliminar este alumno y sus notas?')" title="Eliminar">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            <?php endwhile; ?>                            
                         </tbody>
                     </table>
                 </div>
@@ -140,6 +180,7 @@ $resultado = $conn->query($query);
     <script src="public/vendor/datatables-1.10.25/plugins/pdfmake-0.1.36/pdfmake.min.js"></script>
     <script src="public/vendor/datatables-1.10.25/plugins/pdfmake-0.1.36/vfs_fonts.js"></script>
     <script src="public/vendor/datatables-1.10.25/plugins/buttons-1.7.1/js/buttons.html5.min.js"></script>
+    <script src="public/js/controles.js"></script>
     
 
 </body>
