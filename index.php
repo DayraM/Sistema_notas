@@ -1,4 +1,12 @@
 <!DOCTYPE html>
+<?php 
+include 'conexion.php';
+
+$query = "SELECT a.*, 
+          (SELECT AVG(nota) FROM notas WHERE id_alumno = a.id) as promedio 
+          FROM alumnos a";
+$resultado = $conn->query($query);
+?>
 <html lang="es">
 <head>
     <meta charset="UTF-8">

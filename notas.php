@@ -1,4 +1,15 @@
 <!DOCTYPE html>
+<?php
+include 'conexion.php';
+$id_alumno = $_GET['id'];
+
+// Obtener nombre del alumno
+$res_alumno = $conn->query("SELECT nombre, apellido FROM alumnos WHERE id = $id_alumno");
+$alumno = $res_alumno->fetch_assoc();
+
+// Obtener sus notas
+$notas = $conn->query("SELECT * FROM notas WHERE id_alumno = $id_alumno");
+?>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
