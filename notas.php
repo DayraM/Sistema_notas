@@ -15,6 +15,7 @@ $notas = $conn->query("SELECT * FROM notas WHERE id_alumno = $id_alumno");
     <meta charset="UTF-8">
     <link href="public/vendor/bootstrap-5.0.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="public/vendor/bootstrap-icons-1.13.1/bootstrap-icons.css">
+    <link rel="stylesheet" href="public/vendor/sweetalert2-11.0.16/css/sweetalert2.min.css">
     <title>Gestionar Notas</title>
 </head>
 <body class="bg-light">

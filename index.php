@@ -16,6 +16,8 @@ $resultado = $conn->query($query);
     <link href="public/vendor/datatables-1.10.25/css/dataTables.bootstrap5.min.css" rel="stylesheet">
     <link href="public/vendor/datatables-1.10.25/plugins/buttons-1.7.1/css/buttons.bootstrap5.min.css" rel="stylesheet">
     <link href="public/vendor/bootstrap-icons-1.13.1/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="public/vendor/sweetalert2-11.0.16/css/sweetalert2.min.css">
+
 </head>
 
 <body class="bg-light d-flex flex-column min-vh-100">
