@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <?php 
 include 'conexion.php';
 
@@ -7,6 +6,7 @@ $query = "SELECT a.*,
           FROM alumnos a";
 $resultado = $conn->query($query);
 ?>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -84,9 +84,12 @@ $resultado = $conn->query($query);
                                         <i class="bi bi-pencil-square"></i>
                                     </button>
 
-                                    <a href="acciones.php?eliminar_alumno=<?php echo $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('¿Seguro que deseas eliminar este alumno y sus notas?')" title="Eliminar">
+                                    <button type="button"
+                                            class="btn btn-sm btn-danger"
+                                            onclick="confirmarEliminacionAlumno(<?php echo $row['id']; ?>)"
+                                            title="Eliminar">
                                         <i class="bi bi-trash"></i>
-                                    </a>
+                                    </button>
                                 </td>
                             </tr>
                             <?php endwhile; ?>                            
@@ -180,6 +183,7 @@ $resultado = $conn->query($query);
     <script src="public/vendor/datatables-1.10.25/plugins/pdfmake-0.1.36/pdfmake.min.js"></script>
     <script src="public/vendor/datatables-1.10.25/plugins/pdfmake-0.1.36/vfs_fonts.js"></script>
     <script src="public/vendor/datatables-1.10.25/plugins/buttons-1.7.1/js/buttons.html5.min.js"></script>
+    <script src="public/vendor/sweetalert2-11.0.16/js/sweetalert2.min.js"></script>
     <script src="public/js/controles.js"></script>
     
 
